@@ -6,6 +6,7 @@ import LiveLinkLogoSmall from '../assets/LiveLinkLogoSmall.png';
 import NewEvent from './NewEvent';
 
 import axios from 'axios'; //added
+import { useEvents } from './EventsContext';
 
   const Sidebar = () => {
     const [showNewEvent, setShowNewEvent] = useState(false);
@@ -17,7 +18,6 @@ import axios from 'axios'; //added
       setShowNewEvent(false);
     };
 
-   /* 
 const handleCreateEvent = async (eventData) => { //added
   try {
     const response = await axios.post('/api/events', eventData);
@@ -46,6 +46,7 @@ const handleCreateEvent = async (eventData) => { //added
     }
 
     const [isHovered, setIsHovered] = useState(false);
+
     return (
       <div className="app-container">
         <nav className="sidebar">
@@ -115,7 +116,10 @@ const handleCreateEvent = async (eventData) => { //added
           {showNewEvent && (
           <NewEvent 
             onClose={handleCloseNewEvent} 
-            onCreateEvent={handleCreateEvent}
+            onCreateEvent={(newEvent) => {
+              addEvent(newEvent);
+              handleCloseNewEvent();
+            }}
           />
         )}
           <Outlet />
