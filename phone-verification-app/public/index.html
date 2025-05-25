@@ -8,42 +8,111 @@
       display: none;
       margin-top: 10px;
     }
+    #codeSection {
+      display: none;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <h2>Phone Number Verification</h2>
+
+  <!-- ✅ Phone Number Input -->
   <input type="text" id="phoneNumber" placeholder="Enter phone number" />
   <button onclick="verifyPhone()">Verify</button>
   <p id="result"></p>
 
-  <!-- Hidden Create Account Button -->
+  <!-- ✅ Code Input (hidden initially) -->
+  <div id="codeSection">
+    <input type="text" id="verificationCode" placeholder="Enter code from SMS" />
+    <button onclick="verifyCode()">Submit Code</button>
+    <p id="codeResult"></p>
+  </div>
+
+  <!-- ✅ Create Account Button (hidden until verified) -->
   <button id="createAccountBtn" onclick="goToAccountPage()">Create Account</button>
 
   <script>
+    // ✅ Step 1: Verify phone number and trigger SMS
     async function verifyPhone() {
+      console.log("🟡 verifyPhone() triggered");
       const number = document.getElementById('phoneNumber').value;
+      if (!number.startsWith('+')) {
+        result.innerText = '❗ Please include the country code (e.g. +1)';
+        return;
+      }
       const result = document.getElementById('result');
       const createBtn = document.getElementById('createAccountBtn');
 
       try {
+        // First check with NumVerify
         const response = await fetch(`/verify-phone?number=${encodeURIComponent(number)}&country_code=US`);
         const data = await response.json();
 
         if (data.valid) {
           result.innerText = `✅ Valid number (${data.country_name}, ${data.carrier})`;
-          createBtn.style.display = 'inline-block';
+
+          // Then send SMS code with Twilio
+          const sendCodeRes = await fetch('/send-code', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ number }),
+          });
+
+          const sendCodeData = await sendCodeRes.json();
+          if (sendCodeData.success) {
+            console.log("✅ SMS verification code sent.");
+            document.getElementById('codeSection').style.display = 'block'; // ✅ Show code input
+          } else {
+            console.error("❌ Error sending SMS:", sendCodeData.error);
+            result.innerText = `❌ SMS not sent: ${sendCodeData.error}`;
+          }
+
         } else {
           result.innerText = `❌ Invalid number`;
           createBtn.style.display = 'none';
         }
       } catch (error) {
+        console.error("❌ Error verifying number or sending code:", error);
         result.innerText = 'Error verifying number.';
         createBtn.style.display = 'none';
       }
     }
 
-    function goToAccountPage(){
-        window.location.href = '/account.html'
+    // ✅ Step 2: Submit the code from SMS and verify
+    async function verifyCode() {
+      const number = document.getElementById('phoneNumber').value;
+      const code = document.getElementById('verificationCode').value;
+      const codeResult = document.getElementById('codeResult');
+      const createBtn = document.getElementById('createAccountBtn');
+
+      try {
+        const response = await fetch('/verify-code', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ number, code }),
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          codeResult.innerText = '✅ Phone verified successfully!';
+          createBtn.style.display = 'inline-block'; // ✅ Show create account button
+        } else {
+          codeResult.innerText = `❌ Verification failed: ${data.message}`;
+        }
+      } catch (err) {
+        console.error("❌ Error verifying code:", err);
+        codeResult.innerText = '❌ Error verifying code.';
+      }
+    }
+
+    // ✅ Navigate to account page
+    function goToAccountPage() {
+      window.location.href = '/account.html';
     }
   </script>
 </body>
