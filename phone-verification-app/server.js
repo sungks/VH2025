@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { client, serviceSid } = require('./twilio');
 
 const mongoose = require('mongoose');
 
@@ -19,6 +20,11 @@ const axios    = require('axios');
 const cors     = require('cors');
 const path     = require('path');
 
+<<<<<<< HEAD
+=======
+
+// ✅ CORRECT cohere import (latest SDK)
+>>>>>>> 5406a23006f7d943e7438de82769577b593e9ecf
 const cohereImport = require("cohere-ai");
 const cohere = new cohereImport.CohereClient({
   token: process.env.COHERE_API_KEY,
@@ -71,6 +77,45 @@ app.post('/recommend', async (req, res) => {
     res.status(500).json({ error: "Failed to get recommendation from AI." });
   }
 });
+
+app.post('/send-code', async (req, res) => {
+  const { number } = req.body;
+  console.log('📲 Request to /send-code with number:', number); // <--- Add this
+
+  try {
+    const result = await client.verify.v2
+      .services(serviceSid)
+      .verifications.create({ to: number, channel: 'sms' });
+
+    console.log('✅ Twilio response:', result); // <--- Add this
+
+    res.status(200).json({ success: true, message: 'Code sent' });
+  } catch (err) {
+    console.error('❌ Twilio error:', err); // <--- Add this
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/verify-code', async (req, res) => {
+  const { number, code } = req.body;
+
+  try {
+    const verification = await client.verify.v2
+      .services(serviceSid)
+      .verificationChecks.create({ to: number, code });
+
+    if (verification.status === 'approved') {
+      res.status(200).json({ success: true, message: 'Phone verified' });
+    } else {
+      res.status(400).json({ success: false, message: 'Invalid code' });
+    }
+  } catch (err) {
+    console.error('Twilio verify-code error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
