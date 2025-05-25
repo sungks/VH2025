@@ -1,0 +1,122 @@
+.profile-page {
+    font-family: 'Segoe UI', sans-serif;
+    color: #333;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.profile-header {
+    height: 240px;
+    background-color: #e0e0e0;
+    position: relative;
+}
+
+.avatar-container {
+    position: absolute;
+    bottom: -60px;
+    left: 40px;
+    border-radius: 50%;
+    border: 6px solid white;
+}
+
+.avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    background-color: #bbb;
+    border-radius: 50%;
+}
+
+.profile-info {
+    padding: 80px 40px 20px;
+}
+
+.name {
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.title {
+    color: #777;
+    margin-bottom: 0.3rem;
+}
+
+.location {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.contact-info p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+}
+
+.social-links {
+    margin: 1rem 0;
+}
+
+.social-links a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #4b0082;
+    font-weight: 500;
+}
+
+.chat-btn {
+    background-color: #50c4ed;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.rating {
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+.profile-cards {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 40px;
+    gap: 2rem;
+}
+
+.card {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 12px;
+    flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.video-placeholder {
+    background-color: #e0e0e0;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #555;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.calculator-btn {
+    margin-top: 1rem;
+    background: linear-gradient(to right, #a18cd1, #fbc2eb);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
