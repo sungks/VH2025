@@ -4,6 +4,7 @@ import { VscAccount } from "react-icons/vsc";
 import './Sidebar.css';
 import LiveLinkLogoSmall from '../assets/LiveLinkLogoSmall.png';
 import NewEvent from './NewEvent';
+import { useEvents } from './EventsContext';
 
   const Sidebar = () => {
     const [showNewEvent, setShowNewEvent] = useState(false);
@@ -14,6 +15,8 @@ import NewEvent from './NewEvent';
     const handleCloseNewEvent = () => {
       setShowNewEvent(false);
     };
+
+    const { addEvent } = useEvents();
 
     const handleCreateEvent = (eventData) => {
     // Here you would typically send the data to your backend
@@ -32,6 +35,7 @@ import NewEvent from './NewEvent';
     }
 
     const [isHovered, setIsHovered] = useState(false);
+
     return (
       <div className="app-container">
         <nav className="sidebar">
@@ -104,7 +108,10 @@ import NewEvent from './NewEvent';
           {showNewEvent && (
           <NewEvent 
             onClose={handleCloseNewEvent} 
-            onCreateEvent={handleCreateEvent}
+            onCreateEvent={(newEvent) => {
+              addEvent(newEvent);
+              handleCloseNewEvent();
+            }}
           />
         )}
           <Outlet />

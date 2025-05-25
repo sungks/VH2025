@@ -37,7 +37,7 @@ const NewEvent = ({ onClose, onCreateEvent }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>×</button>
+        <button className="close-button" onClick={onClose}>x</button>
         
         <h2>Create New Event</h2>
         
