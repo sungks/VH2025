@@ -1,221 +1,167 @@
-import React, { useState, useRef } from "react";
-import "./NewEvent.css";
+import React, { useState } from 'react';
+import './NewEvent.css';
 
-const NewEvent = ({ onClose, onCreateEvent }) => {
-  const [eventData, setEventData] = useState({
-    title: "",
-    description: "",
-    location: "",
-    time: "",
-    date: "",
-    attendees: "",
-    dressCode: "",
-    photoAlbumLink: "",
-    image: null, // Add image field
-    imagePreview: null // For showing preview
+export default function NewEvent({ onClose, onCreate }) {
+  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    location: '',
+    hour: '',
+    minute: '',
+    ampm: 'AM',
+    date: '',
+    attendees: 0,
+    description: '',
+    imagePreview: null,
   });
 
-  const fileInputRef = useRef(null);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEventData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const toggleAmpm = () => {
+    setFormData({ ...formData, ampm: formData.ampm === 'AM' ? 'PM' : 'AM' });
+  };
+
+  const incrementAttendees = () => {
+    setFormData((prev) => ({ ...prev, attendees: prev.attendees + 1 }));
+  };
+
+  const decrementAttendees = () => {
+    setFormData((prev) => ({ ...prev, attendees: Math.max(0, prev.attendees - 1) }));
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEventData(prev => ({
-          ...prev,
-          image: file,
-          imagePreview: reader.result
-        }));
-      };
-      reader.readAsDataURL(file);
+      const preview = URL.createObjectURL(file);
+      setImage(preview);
+      setFormData((prev) => ({ ...prev, imagePreview: preview }));
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (!eventData.title || !eventData.location || !eventData.date || !eventData.time) {
-      alert("Please fill in all required fields (Title, Location, Date, Time)");
-      return;
-    }
-    
-    onCreateEvent(eventData);
-    onClose();
+  const hours = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
+  const minutes = ['00', '15', '30', '45'];
+
+  const handleSubmit = () => {
+    const { title, location, date, hour, minute, ampm, attendees, description,imagePreview } = formData;
+    const requiredFields = ['title', 'location', 'date', 'hour', 'minute'];
+    let hasMissing = false;
+
+    requiredFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!formData[id]) {
+        el.classList.add('show-invalid');
+        hasMissing = true;
+        // Remove the highlight after a short delay
+        setTimeout(() => el.classList.remove('show-invalid'), 720);
+      }
+    });
+
+    if (hasMissing) return;
+
+    onCreate({
+      title,
+      location,
+      date,
+      time: `${hour}:${minute} ${ampm}`,
+      attendees,
+      description,
+      imagePreview,
+    });
   };
 
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
-
-   return (
+  return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-button" onClick={onClose}>×</button>
-        
-        <h2>Create New Event</h2>
-        
+        <button className="close-button" onClick={onClose}>&times;</button>
+        <h2>Create New Activity</h2>
         <div className="modal-body">
-          <div className="form-column">
-            <div className="form-group compact-form-group required">
-              <label>Event Title</label>
-              <input
-                type="text"
-                name="title"
-                value={eventData.title}
-                onChange={handleChange}
-                placeholder="Enter title"
-                required
-              />
+          <div className="form-row">
+            <div className="form-group required">
+              <label htmlFor="title">Activity Title</label>
+              <input id="title" type="text" value={formData.title} onChange={handleChange} required />
             </div>
-
-            <div className="form-group compact-form-group required">
-              <label>Date</label>
-              <input
-                type="date"
-                name="date"
-                value={eventData.date}
-                onChange={handleChange}
-                required
-              />
+            <div className="form-group required">
+              <label htmlFor="location">Location</label>
+              <input id="location" type="text" value={formData.location} onChange={handleChange} required />
             </div>
+          </div>
 
-            <div className="form-group compact-form-group required">
-              <label>Time</label>
-              <select
-                name="time"
-                value={eventData.time}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select a time</option>
-                {Array.from({ length: 48 }, (_, i) => {
-                  const hours = Math.floor(i / 2);
-                  const minutes = (i % 2) * 30;
-                  const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-                  return (
-                    <option key={timeString} value={timeString}>
-                      {new Date(`2000-01-01T${timeString}`).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true,
-                      })}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            
-
-            <div className="form-group compact-form-group required">
-              <label>Location</label>
-              <input
-                type="text"
-                name="location"
-                value={eventData.location}
-                onChange={handleChange}
-                placeholder="Enter location"
-                required
-              />
-            </div>
-
-            <div className="form-group compact-form-group">
-              <label>Event Image (optional)</label>
-              <div className="image-upload-container">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageChange}
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                />
-                {eventData.imagePreview ? (
-                  <div className="image-preview" onClick={triggerFileInput}>
-                    <img src={eventData.imagePreview} alt="Preview" />
-                    <div className="change-image-text">Change Image</div>
-                  </div>
-                ) : (
-                  <button 
-                    type="button" 
-                    className="upload-button"
-                    onClick={triggerFileInput}
-                  >
-                    + Upload Image
-                  </button>
-                )}
+          <div className="form-row">
+            <div className="form-group required">
+              <label htmlFor="time">Start Time</label>
+              <div className="time-dropdowns">
+                <select value={formData.hour} onChange={handleChange} id="hour" required>
+                  <option value="">Hour</option>
+                  {hours.map(h => <option key={h} value={h}>{h}</option>)}
+                </select>
+                <span>:</span>
+                <select value={formData.minute} onChange={handleChange} id="minute" required>
+                  <option value="">Minute</option>
+                  {minutes.map(m => <option key={m} value={m}>{m}</option>)}
+                </select>
+                <button type="button" className="ampm-toggle" onClick={toggleAmpm}>{formData.ampm}</button>
               </div>
             </div>
+            <div className="form-group required">
+              <label htmlFor="date">Date</label>
+              <input id="date" type="date" value={formData.date} onChange={handleChange} required />
+            </div>
           </div>
 
-          <div className="form-column">
-            <div className="form-group compact-form-group">
-              <label>Description</label>
-              <textarea
-                name="description"
-                value={eventData.description}
-                onChange={handleChange}
-                placeholder="Enter description (optional)"
-                rows="3" // Reduced from default
-              />
+          <div className="form-row">
+            <div className="form-group ">
+              <label htmlFor="attendees">Max People</label>
+              <div className="attendee-input-wrapper">
+                <button type="button" className="attendee-button" onClick={decrementAttendees} disabled={formData.attendees === 0}>-</button>
+                <input
+                  id="attendees"
+                  type="number"
+                  value={formData.attendees}
+                  onChange={(e) => handleChange({ target: { id: 'attendees', value: Math.max(0, parseInt(e.target.value) || 0) } })}
+                />
+                <button type="button" className="attendee-button" onClick={incrementAttendees}>+</button>
+              </div>
             </div>
+            <div className="form-group">
+              <label htmlFor="dress">Dress Code</label>
+              <input id="dress" type="text" placeholder="e.g. Casual, Formal" />
+            </div>
+          </div>
 
-            <div className="form-group compact-form-group">
-              <label>Number of Attendees (optional)</label>
-              <input
-                type="number"
-                name="attendees"
-                value={eventData.attendees}
-                onChange={handleChange}
-                placeholder="Enter number"
-                min="1"
-              />
-            </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea id="description" value={formData.description} onChange={handleChange} placeholder="Brief description of the activity"></textarea>
+          </div>
 
-            <div className="form-group compact-form-group">
-              <label>Dress Code (optional)</label>
-              <input
-                type="text"
-                name="dressCode"
-                value={eventData.dressCode}
-                onChange={handleChange}
-                placeholder="Enter dress code"
-              />
-            </div>
-
-            <div className="form-group compact-form-group">
-              <label>Photo Album Link (optional)</label>
-              <input
-                type="url"
-                name="photoAlbumLink"
-                value={eventData.photoAlbumLink}
-                onChange={handleChange}
-                placeholder="Enter link for photo album"
-              />
-            </div>
+          <div className="form-group image-upload-container">
+            <label>Upload Image</label>
+            <label htmlFor="upload-image" className={image ? "image-preview" : "upload-button"}>
+              {image ? (
+                <>
+                  <img src={image} alt="Preview" />
+                  <span className="change-image-text">Change Image</span>
+                </>
+              ) : (
+                "Click to upload image"
+              )}
+            </label>
+            <input
+              id="upload-image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: 'none' }}
+            />
           </div>
         </div>
-
         <div className="form-actions">
-          <button type="button" onClick={onClose} className="cancel-button">
-            Cancel
-          </button>
-          <button type="submit" className="create-button" onClick={handleSubmit}>
-            Create Event
-          </button>
+          <button className="cancel-button" onClick={onClose}>Cancel</button>
+          <button className="create-button" onClick={handleSubmit}>Create Activity</button>
         </div>
       </div>
     </div>
   );
-};
-
-export default NewEvent;
-
+}

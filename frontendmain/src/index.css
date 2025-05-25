@@ -1,16 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --font-primary: "Urbanist", Helvetica, Arial, sans-serif;
+  --font-heading: "Unbounded-Bold", Helvetica, Arial, sans-serif;
 
-  color-scheme: light dark;
-  color: #323943;
-  background-color: #FFFF;
+  --color-bg: #ffffff;
+  --color-surface: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-text: #333333;
+  --color-muted: #666666;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-primary: #F1B1C1;
+  --color-primary-hover: #CE7D91;
+
+  --radius-lg: 20px;
+  --radius-md: 12px;
+
+  --shadow-lg: 0 14px 42px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: .75rem;
+  --spacing-lg: 1rem;
 }
 
 body {
@@ -24,6 +37,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin-bottom: 15px;
 }
 
 .app-container {
@@ -32,7 +46,16 @@ h1 {
 
 .main-content {
     flex: 1;
-  margin-left: 383px; /* Same as sidebar width */
+  margin-left: 420px; /* Same as sidebar width */
   padding: 20px;
   width: calc(100% - 383px);
 }
+
+
+
+body, h1, h2, h3, h4, h5, h6, p, span, div, input, textarea, label {
+  font-family: "Urbanist", Helvetica, Arial, sans-serif;
+  letter-spacing: .7px;
+}
+
+
