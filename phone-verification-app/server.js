@@ -1,11 +1,24 @@
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
+// Connect to MongoDB Atlas
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eventsdb', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("✅ MongoDB connected");
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+});
+
+///////////////////////////////////////
+
 const express  = require('express');
 const axios    = require('axios');
 const cors     = require('cors');
 const path     = require('path');
 
-// ✅ CORRECT cohere import (latest SDK)
 const cohereImport = require("cohere-ai");
 const cohere = new cohereImport.CohereClient({
   token: process.env.COHERE_API_KEY,
@@ -42,10 +55,10 @@ app.post('/recommend', async (req, res) => {
   const { eventType, groupSize } = req.body;
 
   try {
-    const prompt = `Suggest a fun, creative, and practical event idea for "${eventType}" with ${groupSize}.`;
+    const prompt = `Suggest just one fun, creative, and practical event idea for "${eventType}" with ${groupSize} people.`;
 
     const response = await cohere.generate({
-      model: "command",
+      model: "command", 
       prompt,
       max_tokens: 150,
       temperature: 0.8,
@@ -61,4 +74,26 @@ app.post('/recommend', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
+});
+
+/////////////added//////////////////////////////////////////////
+
+app.post('/events', async (req, res) => {
+  try {
+    const newEvent = new Event(req.body);
+    const savedEvent = await newEvent.save();
+    res.status(201).json(savedEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to save event.' });
+  }
+});
+
+app.get('/events', async (req, res) => {
+  try {
+    const events = await Event.find({});
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch events.' });
+  }
 });

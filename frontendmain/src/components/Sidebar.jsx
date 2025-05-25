@@ -5,6 +5,8 @@ import './Sidebar.css';
 import LiveLinkLogoSmall from '../assets/LiveLinkLogoSmall.png';
 import NewEvent from './NewEvent';
 
+import axios from 'axios'; //added
+
   const Sidebar = () => {
     const [showNewEvent, setShowNewEvent] = useState(false);
     const handleButtonClick = () => {
@@ -15,21 +17,16 @@ import NewEvent from './NewEvent';
       setShowNewEvent(false);
     };
 
-    const handleCreateEvent = (eventData) => {
-    // Here you would typically send the data to your backend
-    console.log("Creating event:", eventData);
-    // Add your API call here
-    // Example:
-    // axios.post('/api/events', eventData)
-    //   .then(response => {
-    //     console.log("Event created:", response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error("Error creating event:", error);
-    //   });
-    
-    // For now, we'll just log it
-    }
+const handleCreateEvent = async (eventData) => { //added
+  try {
+    const response = await axios.post('/api/events', eventData);
+    console.log("✅ Event created:", response.data);
+    alert("Event created!");
+  } catch (error) {
+    console.error("❌ Error creating event:", error);
+    alert("Error creating event.");
+  }
+};
 
     const [isHovered, setIsHovered] = useState(false);
     return (
