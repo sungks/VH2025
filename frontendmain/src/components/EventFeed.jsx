@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './EventFeed.css';
 import EventDetail from './EventDetail';
 import { useEvents } from './EventsContext';
+import { playSound } from '../utils/sound';
 
 export default function EventFeed({ events }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -10,6 +11,7 @@ export default function EventFeed({ events }) {
 
   const handleCardClick = (event) => {
     setSelectedEvent(event);
+    playSound('/sounds/click.mp3'); 
   };
 
   const closeDetail = () => {
@@ -75,7 +77,7 @@ function EventCard({ event, onClick, onJoinToggle, transition }) {
   return (
     <div
       className={`event-card ${transition ? 'join-transition' : ''}`}
-      onClick={onClick}
+       onClick={() => { playSound('/sounds/click.mp3'); onClose();}}
     >
       {event.imagePreview && (
         <div className="event-image-container">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './NewEvent.css';
+import { playSound } from '../utils/sound';
 
 export default function NewEvent({ onClose, onCreate }) {
   const [image, setImage] = useState(null);
@@ -75,7 +76,7 @@ export default function NewEvent({ onClose, onCreate }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-button" onClick={() => { playSound('/sounds/click.mp3'); onClose; }}>&times;</button>
+        <button className="close-button" onClick={() => { playSound('/sounds/click.mp3'); onClose(); }}>&times;</button>
         <h2>Create New Activity</h2>
         <div className="modal-body">
           <div className="form-row">
@@ -158,8 +159,8 @@ export default function NewEvent({ onClose, onCreate }) {
           </div>
         </div>
         <div className="form-actions">
-          <button className="cancel-button" onClick={() => { playSound('/sounds/click.mp3'); onClose; }}>Cancel</button>
-          <button className="create-button" onClick={() => { playSound('/sounds/click.mp3'); handleSubmit; }}>Create Activity</button>
+          <button className="cancel-button" onClick={() => { playSound('/sounds/click.mp3'); onClose(); }}>Cancel</button>
+          <button className="create-button" onClick={() => { playSound('/sounds/click.mp3'); handleSubmit(); }}>Create Activity</button>
         </div>
       </div>
     </div>

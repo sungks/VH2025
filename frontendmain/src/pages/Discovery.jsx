@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Discovery.css';
+import { playSound } from '../utils/sound';
 
 function Discovery() {
     const [eventType, setEventType] = useState('');
