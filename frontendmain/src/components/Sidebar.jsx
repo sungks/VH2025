@@ -7,6 +7,7 @@ import NewEvent from './NewEvent';
 
 import axios from 'axios'; //added
 import { useEvents } from './EventsContext';
+import { playSound } from '../utils/sound';
 
   const Sidebar = () => {
     const [showNewEvent, setShowNewEvent] = useState(false);
@@ -66,7 +67,7 @@ import { useEvents } from './EventsContext';
               onClick={handleButtonClick}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => {setIsHovered(false); setIsClicked(false);}}
-              onMouseDown={() => setIsClicked(true)}
+              onMouseDown={() => {setIsClicked(true); playSound('/sounds/click.mp3');}}
               onMouseUp={() => setIsClicked(false)}
               className={`custom-action-button ${isHovered ? 'hovered' : 'unhovered'} ${isClicked ? 'clicked' : ''}`}
             >
@@ -115,7 +116,7 @@ import { useEvents } from './EventsContext';
           setIsHovered(false);
           setIsClicked(false);
         }}
-        onMouseDown={() => setIsClicked(true)}
+        onMouseDown={() => {setIsClicked(true); playSound('/sounds/click.mp3');}}
         onMouseUp={() => setIsClicked(false)}
       >
         {isActive ? (

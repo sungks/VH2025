@@ -76,7 +76,7 @@ function Discovery() {
 
                 <button
                     className="recommendation-btn"
-                    onClick={getRecommendation}
+                    onClick={() => { playSound('/sounds/click.mp3'); getRecommendation();}}
                     disabled={loading}
                 >
                     {loading ? 'Getting...' : 'Get Recommendation'}
