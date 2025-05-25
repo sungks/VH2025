@@ -17,6 +17,7 @@ import axios from 'axios'; //added
       setShowNewEvent(false);
     };
 
+   /* 
 const handleCreateEvent = async (eventData) => { //added
   try {
     const response = await axios.post('/api/events', eventData);
@@ -27,6 +28,22 @@ const handleCreateEvent = async (eventData) => { //added
     alert("Error creating event.");
   }
 };
+*/
+ const handleCreateEvent = (eventData) => {
+    // Here you would typically send the data to your backend
+    console.log("Creating event:", eventData);
+    // Add your API call here
+    // Example:
+    // axios.post('/api/events', eventData)
+    //   .then(response => {
+    //     console.log("Event created:", response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error("Error creating event:", error);
+    //   });
+    
+    // For now, we'll just log it
+    }
 
     const [isHovered, setIsHovered] = useState(false);
     return (
@@ -64,10 +81,7 @@ const handleCreateEvent = async (eventData) => { //added
                 hoverSrc="/Discovery3.svg"
               />
             )}
-          </NavLink>
-
-          <NavLink to = "/recomendations">recomendations
-          </NavLink>
+          </NavLink>          
 
           <div className="bottomSidebar">
 

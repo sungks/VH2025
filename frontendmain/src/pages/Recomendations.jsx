@@ -20,7 +20,7 @@ function Recomendations() {
     return(
 
         <>
-            <button onClick={getRecomendation}>Get Recomendations</button>
+            <button onClick={getRecomendation}>Get Recommendations</button>
             <p>Response: {data}</p>
         </>
     )
