@@ -3,7 +3,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { VscAccount } from "react-icons/vsc";
 import './Sidebar.css';
 import LiveLinkLogoSmall from '../assets/LiveLinkLogoSmall.png';
-import NewEvent from './NewEvent';
+//import NewEvent from './NewEvent';
+import NewEvent from './NewEventFigma';
 
 import axios from 'axios'; //added
 import { useEvents } from './EventsContext';
@@ -20,16 +21,16 @@ import { useEvents } from './EventsContext';
 
     const { addEvent } = useEvents();
 
-const handleCreateEvent = async (eventData) => { //added
-  try {
-    const response = await axios.post('/api/events', eventData);
-    console.log("✅ Event created:", response.data);
-    alert("Event created!");
-  } catch (error) {
-    console.error("❌ Error creating event:", error);
-    alert("Error creating event.");
-  }
-};
+  const handleCreateEvent = async (eventData) => { //added
+    try {
+      const response = await axios.post('/api/events', eventData);
+      console.log("✅ Event created:", response.data);
+      alert("Event created!");
+    } catch (error) {
+      console.error("❌ Error creating event:", error);
+      alert("Error creating event.");
+    }
+  };
 
     const [isHovered, setIsHovered] = useState(false);
 

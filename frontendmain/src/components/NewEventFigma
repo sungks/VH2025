@@ -1,0 +1,193 @@
+import React, { useState, useRef } from "react";
+import "./NewEventFigma.css";
+import { faSolidUpload, faSolidCrown, faSolidWalking, faSolidMapPin, faSolidClock, faSolidCalendarDay, faSolidBreadSlice, faSolidDog } from "./icons"; // You'll need to import these icons
+
+const NewEventFigma = ({ onClose, onCreateEvent }) => {
+  const [eventData, setEventData] = useState({
+    title: "[Enter Title]",
+    description: "[Enter Description]",
+    location: "[Location]",
+    time: "[Enter Time]",
+    date: "[Enter Date]",
+    attendees: "[enter number]",
+    dressCode: "[Enter Dress Code]",
+    petPolicy: "[Enter Pet Policy]",
+    photoAlbumLink: "[Enter Link for Photo Album]",
+    image: null
+  });
+
+  const fileInputRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEventData(prev => ({
+          ...prev,
+          image: file,
+          imagePreview: reader.result
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = () => {
+    onCreateEvent(eventData);
+    onClose();
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
+
+  return (
+    <div className="property">
+      <div className="overlap-group">
+        <div className="div" />
+        
+        <div className="frame-2">
+          <div className="text-wrapper-2">
+            <input
+              type="text"
+              name="title"
+              value={eventData.title}
+              onChange={handleChange}
+              className="title-input"
+            />
+          </div>
+
+          <img 
+            className="fa-solid-upload" 
+            alt="Upload" 
+            src={faSolidUpload} 
+            onClick={triggerFileInput}
+          />
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
+
+          {/* InterestTag would need to be implemented separately */}
+        </div>
+
+        <textarea
+          className="text-wrapper-3 description-input"
+          name="description"
+          value={eventData.description}
+          onChange={handleChange}
+        />
+
+        <div className="text-wrapper-4">Upload Photo</div>
+
+        <button className="medium-action-button" onClick={handleSubmit}>
+          Create Event
+        </button>
+      </div>
+
+      <div className="frame-3">
+        <div className="frame-4">
+          <img className="fa-solid-crown" alt="Host" src={faSolidCrown} />
+          <div className="text-wrapper-5">You</div>
+        </div>
+
+        <div className="frame-5">
+          <img className="fa-solid-walking" alt="Attendees" src={faSolidWalking} />
+          <input
+            type="text"
+            name="attendees"
+            value={eventData.attendees}
+            onChange={handleChange}
+            className="attendees-input"
+          />
+        </div>
+      </div>
+
+      <div className="frame-6">
+        <div className="frame-7">
+          <img className="fa-solid-map-pin" alt="Location" src={faSolidMapPin} />
+          <input
+            type="text"
+            name="location"
+            value={eventData.location}
+            onChange={handleChange}
+            className="location-input"
+          />
+        </div>
+
+        <div className="frame-7">
+          <img className="fa-solid-clock" alt="Time" src={faSolidClock} />
+          <input
+            type="time"
+            name="time"
+            value={eventData.time}
+            onChange={handleChange}
+            className="time-input"
+          />
+        </div>
+
+        <div className="frame-7">
+          <img className="fa-solid-calendar" alt="Date" src={faSolidCalendarDay} />
+          <input
+            type="date"
+            name="date"
+            value={eventData.date}
+            onChange={handleChange}
+            className="date-input"
+          />
+        </div>
+      </div>
+
+      <div className="text-wrapper-6">Additional Details</div>
+
+      <div className="frame-8">
+        <div className="frame-5">
+          <img className="img" alt="Dress Code" src={faSolidBreadSlice} />
+          <input
+            type="text"
+            name="dressCode"
+            value={eventData.dressCode}
+            onChange={handleChange}
+            className="dress-code-input"
+          />
+        </div>
+
+        <div className="frame-9">
+          <img className="img" alt="Pet Policy" src={faSolidDog} />
+          <input
+            type="text"
+            name="petPolicy"
+            value={eventData.petPolicy}
+            onChange={handleChange}
+            className="pet-policy-input"
+          />
+        </div>
+      </div>
+
+      {eventData.imagePreview && (
+        <img className="image-2" alt="Preview" src={eventData.imagePreview} />
+      )}
+
+      <div className="text-wrapper-7">Photo Album</div>
+
+      <input
+        type="url"
+        name="photoAlbumLink"
+        value={eventData.photoAlbumLink}
+        onChange={handleChange}
+        className="p photo-album-input"
+      />
+    </div>
+  );
+};
+
+export default NewEventFigma;

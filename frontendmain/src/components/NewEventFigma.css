@@ -1,0 +1,242 @@
+.property {
+  background-color: #ffffff;
+  border-radius: 20px;
+  height: 975px;
+  overflow: hidden;
+  position: relative;
+  width: 980px;
+  margin: 20px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.property .overlap-group {
+  height: 653px;
+  left: 0;
+  position: absolute;
+  top: -232px;
+  width: 980px;
+}
+
+.property .div {
+  background-color: #b7b7b7;
+  height: 653px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 979px;
+}
+
+.property .frame-2 {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  height: 421px;
+  left: 0;
+  position: absolute;
+  top: 232px;
+  width: 980px;
+}
+
+.property .text-wrapper-2 {
+  color: #000000;
+  font-family: "Unbounded-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  left: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 321px;
+}
+
+.property .text-wrapper-2 input {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  width: 90%;
+  outline: none;
+}
+
+.property .fa-solid-upload {
+  height: 51px;
+  left: 24px;
+  position: absolute;
+  top: 18px;
+  width: 51px;
+  cursor: pointer;
+}
+
+.property .text-wrapper-3 {
+  color: #000000;
+  font-family: "Urbanist-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  left: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 603px;
+  width: 90%;
+}
+
+.property .text-wrapper-3.description-input {
+  background: transparent;
+  border: none;
+  resize: none;
+  height: 100px;
+  outline: none;
+}
+
+.property .text-wrapper-4 {
+  color: #000000;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  left: 96px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 258px;
+}
+
+.property .medium-action-button {
+  height: 61px;
+  left: 736px;
+  position: absolute;
+  top: 579px;
+  width: 224px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.property .frame-3 {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 17px 16px;
+  position: absolute;
+  top: 424px;
+  width: 981px;
+}
+
+.property .frame-4,
+.property .frame-5,
+.property .frame-7,
+.property .frame-8,
+.property .frame-9 {
+  align-items: center;
+  display: inline-flex;
+  gap: 14px;
+}
+
+.property .text-wrapper-5 {
+  color: #000000;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.property .frame-6 {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  left: 32px;
+  position: absolute;
+  top: 524px;
+  width: 876px;
+}
+
+.property .text-wrapper-6 {
+  color: #000000;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  left: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 613px;
+}
+
+.property .frame-8 {
+  left: 33px;
+  position: absolute;
+  top: 670px;
+  gap: 25px;
+}
+
+.property .image-2 {
+  height: 200px;
+  left: 33px;
+  object-fit: cover;
+  position: absolute;
+  top: 754px;
+  width: 200px;
+  border-radius: 8px;
+}
+
+.property .text-wrapper-7 {
+  color: #000000;
+  font-family: "Urbanist-ExtraBold", Helvetica;
+  font-size: 40px;
+  font-weight: 800;
+  left: 252px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 793px;
+}
+
+.property .p {
+  color: #000000;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  left: 252px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 889px;
+  width: 700px;
+}
+
+.property .p.photo-album-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Input field styles */
+.property input[type="text"],
+.property input[type="time"],
+.property input[type="date"],
+.property input[type="url"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  padding: 5px;
+  width: 200px;
+  outline: none;
+}
+
+.property .attendees-input,
+.property .location-input,
+.property .time-input,
+.property .date-input,
+.property .dress-code-input,
+.property .pet-policy-input {
+  width: 150px;
+}
