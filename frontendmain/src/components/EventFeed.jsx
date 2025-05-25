@@ -37,7 +37,7 @@ export default function EventFeed({ events }) {
                 <EventCard
                     key={event.id}
                     event={event}
-                    onClick={() => handleCardClick(event)}
+                    onClick={() => { playSound('/sounds/click.mp3'); handleCardClick(event);}}
                     onJoinToggle={handleJoinToggle}
                     transition={event.id === transitionId}
                 />
@@ -57,7 +57,7 @@ export default function EventFeed({ events }) {
                 <EventCard
                     key={event.id}
                     event={event}
-                    onClick={() => handleCardClick(event)}
+                    onClick={() => { playSound('/sounds/click.mp3'); handleCardClick(event);}}
                     onJoinToggle={handleJoinToggle}
                     transition={event.id === transitionId}
                 />
