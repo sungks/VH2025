@@ -46,7 +46,9 @@ frontendmain/
 └── public/
 
 backend/
-├── server.js # Express backend with Cohere routes
+├── server.js # Express backend with Twilio & Cohere routes
+├── twilio.js # Twilio client and service SID
+└── .env # Environment variables
 
 
 ---
@@ -56,7 +58,9 @@ backend/
 ### 🔧 Prerequisites
 
 - Node.js v18 or higher
+- A Twilio account with a verified phone number
 - Cohere API key (https://dashboard.cohere.com/api-keys)
+- Numverify API key (free at https://numverify.com)
 
 ---
 
@@ -67,8 +71,14 @@ backend/
    ```bash
    git clone https://github.com/yourusername/livelink.git
    cd livelink
+---
 
+In your .env file:
+TWILIO_ACCOUNT_SID=your_sid
+TWILIO_AUTH_TOKEN=your_token
+TWILIO_SERVICE_SID=your_service_sid
 COHERE_API_KEY=your_cohere_key
+NUMVERIFY_API_KEY=your_numverify_key
 
 Run the backend: 
 node server.js
