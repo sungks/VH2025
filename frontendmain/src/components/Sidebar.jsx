@@ -3,8 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { VscAccount } from "react-icons/vsc";
 import './Sidebar.css';
 import LiveLinkLogoSmall from '../assets/LiveLinkLogoSmall.png';
-//import NewEvent from './NewEvent';
-import NewEvent from './NewEventFigma';
+import NewEvent from './NewEvent';
 
 import axios from 'axios'; //added
 import { useEvents } from './EventsContext';
@@ -21,16 +20,21 @@ import { useEvents } from './EventsContext';
 
     const { addEvent } = useEvents();
 
-  const handleCreateEvent = async (eventData) => { //added
-    try {
-      const response = await axios.post('/api/events', eventData);
-      console.log("✅ Event created:", response.data);
-      alert("Event created!");
-    } catch (error) {
-      console.error("❌ Error creating event:", error);
-      alert("Error creating event.");
+ const handleCreateEvent = (eventData) => {
+    // Here you would typically send the data to your backend
+    console.log("Creating event:", eventData);
+    // Add your API call here
+    // Example:
+    // axios.post('/api/events', eventData)
+    //   .then(response => {
+    //     console.log("Event created:", response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error("Error creating event:", error);
+    //   });
+    
+    // For now, we'll just log it
     }
-  };
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -69,10 +73,7 @@ import { useEvents } from './EventsContext';
                 hoverSrc="/Discovery3.svg"
               />
             )}
-          </NavLink>
-
-          <NavLink to = "/recomendations">recomendations
-          </NavLink>
+          </NavLink>          
 
           <div className="bottomSidebar">
 
