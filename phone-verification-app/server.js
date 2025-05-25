@@ -1,4 +1,13 @@
 require('dotenv').config();
+
+console.log("=== ENV CHECK ===");
+console.log("COHERE_API_KEY:", process.env.COHERE_API_KEY);
+console.log("NUMVERIFY_API_KEY:", process.env.NUMVERIFY_API_KEY);
+console.log("TWILIO_ACCOUNT_SID:", process.env.TWILIO_ACCOUNT_SID);
+console.log("TWILIO_AUTH_TOKEN:", process.env.TWILIO_AUTH_TOKEN);
+console.log("TWILIO_SERVICE_SID:", process.env.TWILIO_SERVICE_SID);
+console.log("===================");
+
 const { client, serviceSid } = require('./twilio');
 
 const mongoose = require('mongoose');
@@ -20,11 +29,7 @@ const axios    = require('axios');
 const cors     = require('cors');
 const path     = require('path');
 
-<<<<<<< HEAD
-=======
-
 // ✅ CORRECT cohere import (latest SDK)
->>>>>>> 5406a23006f7d943e7438de82769577b593e9ecf
 const cohereImport = require("cohere-ai");
 const cohere = new cohereImport.CohereClient({
   token: process.env.COHERE_API_KEY,
@@ -52,7 +57,7 @@ app.get('/verify-phone', async (req, res) => {
 
     res.json(data);
   } catch (err) {
-    console.error(err);
+    console.error('❌ Numverify failed:', err.response?.data || err.message);
     res.status(500).json({ error: 'Phone verification failed.' });
   }
 });

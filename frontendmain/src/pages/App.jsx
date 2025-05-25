@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Login from './Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Events from './Events';
@@ -9,6 +10,18 @@ import Recomendations from './Recomendations';
 import { EventsProvider } from '../components/EventsContext';
 
 function App() {
+
+  const [verified, setVerified] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('verified');
+    if (stored === 'true') setVerified(true);
+  }, []);
+
+  if (!verified) {
+    return <Login onVerified={() => setVerified(true)} />;
+  }
+
   return (
     <Router>
       <EventsProvider>
