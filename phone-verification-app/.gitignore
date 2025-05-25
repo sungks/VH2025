@@ -1,4 +1,4 @@
 # .gitignore
 **/.env
 *.json
-**/.node_modules
+phone-verification-app/node_modules/
