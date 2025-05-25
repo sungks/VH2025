@@ -18,17 +18,6 @@ import { useEvents } from './EventsContext';
       setShowNewEvent(false);
     };
 
-const handleCreateEvent = async (eventData) => { //added
-  try {
-    const response = await axios.post('/api/events', eventData);
-    console.log("✅ Event created:", response.data);
-    alert("Event created!");
-  } catch (error) {
-    console.error("❌ Error creating event:", error);
-    alert("Error creating event.");
-  }
-};
-*/
  const handleCreateEvent = (eventData) => {
     // Here you would typically send the data to your backend
     console.log("Creating event:", eventData);
