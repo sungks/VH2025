@@ -1,12 +1,13 @@
 import React from 'react';
 import './EventDetail.css';
+import { playSound } from '../utils/sound';
 
 const EventDetail = ({ event, onClose }) => {
   return (
     <div className="event-detail-modal">
-      <div className="event-detail-overlay" onClick={() => { playSound('/sounds/click.mp3'); onClose;}}></div>
+      <div className="event-detail-overlay" onClick={() => { playSound('/sounds/click.mp3'); onClose();}}></div>
       <div className="event-detail-content">
-        <button className="close-button" onClick={() => { playSound('/sounds/click.mp3'); onClose;}}><img src={"/Exit.svg"} alt="" /></button>
+        <button className="close-button" onClick={() => { playSound('/sounds/click.mp3'); onClose();}}><img src={"/Exit.svg"} alt="" /></button>
         
         <h2>{event.title}</h2>
         
