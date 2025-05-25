@@ -1,0 +1,50 @@
+.sidebar {
+    height: 100%; 
+    width: 383px;
+    position: fixed;
+    padding: 14px 6px;
+    z-index: 1; 
+    top: 0;
+    left: 0;
+    background-color: #FFFF;
+    box-shadow: 2px 0px 20px 0px rgba(0, 0, 0, 0.25);
+    overflow-x: hidden; 
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar-logo {
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 180px;
+  align-self: center;
+}
+
+.nav-content {
+    display: flex;
+    width: 369px;
+    align-items: center;
+    gap: 13px;
+    flex-shrink: 0;
+    padding: 5px;
+}
+
+.nav-content img {
+  max-width: 90%;
+  max-height: auto;
+}
+
+
+.bottomSidebar {
+    margin-top: auto;
+    padding-bottom: 20px;
+}
+
+
+
