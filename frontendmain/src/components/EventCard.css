@@ -1,0 +1,158 @@
+.event-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 980px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-header {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.event-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.event-title-group {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.event-title {
+  font-family: "Unbounded-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.event-description {
+  font-family: "Urbanist-Regular", Helvetica;
+  font-size: 20px;
+  color: #000000;
+  margin: 0;
+}
+
+.event-action-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 51px;
+  height: 51px;
+  cursor: pointer;
+}
+
+.event-host-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.host-group,
+.attendees-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.host-icon,
+.attendees-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.host-name,
+.attendees-count {
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.event-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.detail-group {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.detail-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.detail-text {
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+}
+
+.additional-details-title {
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.additional-details {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.photo-album-section {
+  position: relative;
+}
+
+.photo-album-thumbnail {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.photo-album-title {
+  position: absolute;
+  left: 220px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Urbanist-ExtraBold", Helvetica;
+  font-size: 40px;
+  font-weight: 800;
+  color: #000000;
+}
+
+.photo-album-link {
+  position: absolute;
+  left: 220px;
+  top: 60%;
+  font-family: "Urbanist-SemiBold", Helvetica;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000000;
+  text-decoration: none;
+}
+
+.photo-album-link:hover {
+  text-decoration: underline;
+}

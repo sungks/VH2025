@@ -9,8 +9,16 @@ export const EventsProvider = ({ children }) => {
     setEvents(prevEvents => [...prevEvents, { ...newEvent, id: Date.now() }]);
   };
 
+  const updateEvent = (id, updatedFields) => {
+    setEvents(prev =>
+      prev.map(event =>
+        event.id === id ? { ...event, ...updatedFields } : event
+      )
+    );
+  };
+
   return (
-    <EventsContext.Provider value={{ events, addEvent }}>
+    <EventsContext.Provider value={{ events, addEvent, updateEvent }}>
       {children}
     </EventsContext.Provider>
   );

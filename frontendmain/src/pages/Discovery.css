@@ -8,7 +8,7 @@
 .discovery-header {
     font-size: 2.75rem;
     font-weight: 700;
-    margin-left: 2rem;
+    margin-left: 9rem;
     margin-bottom: 2rem;
     color: #333;
 }
@@ -20,7 +20,6 @@
     padding: 2rem 2.5rem;
     max-width: 600px;
     margin: 0 auto;
-    font-family: 'Segoe UI', sans-serif;
 }
 
 .form-group {
@@ -72,4 +71,37 @@
     font-weight: 500;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+.recommendation-btn {
+  background-color: #a279b4;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.recommendation-btn:hover {
+  background-color: #8a62a2;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.recommendation-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.recommendation-btn.animate {
+  animation: pulse 0.6s ease-in-out;
 }

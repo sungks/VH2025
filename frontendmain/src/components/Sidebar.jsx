@@ -20,28 +20,13 @@ import { useEvents } from './EventsContext';
 
     const { addEvent } = useEvents();
 
- const handleCreateEvent = (eventData) => {
-    // Here you would typically send the data to your backend
-    console.log("Creating event:", eventData);
-    // Add your API call here
-    // Example:
-    // axios.post('/api/events', eventData)
-    //   .then(response => {
-    //     console.log("Event created:", response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error("Error creating event:", error);
-    //   });
-    
-    // For now, we'll just log it
-    }
-
     const [isHovered, setIsHovered] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
     return (
       <div className="app-container">
         <nav className="sidebar">
-          <img src={LiveLinkLogoSmall} alt="Logo" />
+          <img src={LiveLinkLogoSmall} className = "sidebar-logo" alt="Logo" />
           <NavLink to="/events" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             {({ isActive }) => (
               <NavItemContent 
@@ -77,18 +62,16 @@ import { useEvents } from './EventsContext';
 
           <div className="bottomSidebar">
 
-            <button 
-            onClick={handleButtonClick}
-            className="image-button"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}>
-            
-            <img 
-              src={isHovered ? '/AddActivity2.svg' : '/AddActivity1.svg'} 
-              alt="Button icon"
-              className="button-icon"
-            />
-          </button>
+            <div
+              onClick={handleButtonClick}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => {setIsHovered(false); setIsClicked(false);}}
+              onMouseDown={() => setIsClicked(true)}
+              onMouseUp={() => setIsClicked(false)}
+              className={`custom-action-button ${isHovered ? 'hovered' : 'unhovered'} ${isClicked ? 'clicked' : ''}`}
+            >
+              <div className="custom-action-button-text">Add Activity</div>
+            </div>
           <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
             {({ isActive }) => (
               <NavItemContent 
@@ -107,7 +90,7 @@ import { useEvents } from './EventsContext';
           {showNewEvent && (
           <NewEvent 
             onClose={handleCloseNewEvent} 
-            onCreateEvent={(newEvent) => {
+            onCreate={(newEvent) => {
               addEvent(newEvent);
               handleCloseNewEvent();
             }}
@@ -121,13 +104,19 @@ import { useEvents } from './EventsContext';
   };
 
   const NavItemContent = ({ isActive, inactiveSrc, activeSrc, hoverSrc, text }) => {
-    const [isHovered, setIsHovered] = useState(false);
+      const [isHovered, setIsHovered] = useState(false);
+     const [isClicked, setIsClicked] = useState(false);
 
     return (
-      <div 
-        className="nav-content"
+      <div
+        className={`nav-content nav-animated ${isHovered ? "hovered" : ""} ${isClicked ? "clicked" : ""}`}
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setIsClicked(false);
+        }}
+        onMouseDown={() => setIsClicked(true)}
+        onMouseUp={() => setIsClicked(false)}
       >
         {isActive ? (
           <img src={activeSrc} alt={`${text} Active`} className="nav-icon" />
